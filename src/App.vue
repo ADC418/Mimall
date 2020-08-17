@@ -6,15 +6,24 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import HelloWorld from './components/HelloWorld.vue';
+//import axios from "axios";
+import jsonp from "jsonp"
 export default {
   name: 'App',
   components: {
     HelloWorld
   },
   data(){
-    return{}
+    return{
+      age:30
+    }
+  },
+  mounted(){
+   let url="https://www.easy-mock.com/mock/5f3a9ce45f7d57560f08321e/example"
+   jsonp.get(url,()=>{
+
+   })
   }
 }
 </script>
