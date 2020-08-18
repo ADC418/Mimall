@@ -31,8 +31,10 @@ export default {
     //   console.log(err)
     // })
     let url="https://cnodejs.org/api/v1/topic/5efb4c5d13f8b244e57cc632";
-    jsonp(url,()=>{
+    jsonp(url,(err,res)=>{
       //jsonp是在network中的js查看
+      let result=res;
+      this.data=result;
     })
   }
 }
