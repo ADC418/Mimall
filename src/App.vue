@@ -7,8 +7,8 @@
 
 <script>
 import HelloWorld from './components/HelloWorld.vue';
-//import axios from "axios";
-import jsonp from "jsonp"
+import axios from "axios";
+//import jsonp from "jsonp"
 export default {
   name: 'App',
   components: {
@@ -16,14 +16,19 @@ export default {
   },
   data(){
     return{
-      age:30
+      age:30,
+      data:""
     }
   },
   mounted(){
-   let url="https://www.easy-mock.com/mock/5f3a9ce45f7d57560f08321e/example"
-   jsonp.get(url,()=>{
-
-   })
+    axios({
+      url:"https://cnodejs.org/api/v1/topics",
+      method:"get"
+    }).then(res=>{
+      console.log(res)
+    }).catch(err=>{
+      console.log(err)
+    })
   }
 }
 </script>
