@@ -7,8 +7,8 @@
 
 <script>
 import HelloWorld from './components/HelloWorld.vue';
-import axios from "axios";
-//import jsonp from "jsonp"
+//import axios from "axios";
+import jsonp from "jsonp"
 export default {
   name: 'App',
   components: {
@@ -21,13 +21,18 @@ export default {
     }
   },
   mounted(){
-    axios({
-      url:"https://cnodejs.org/api/v1/topics",
-      method:"get"
-    }).then(res=>{
-      console.log(res)
-    }).catch(err=>{
-      console.log(err)
+    //axios是在network中的XHR中查看
+    // axios({
+    //   url:"https://cnodejs.org/api/v1/topics",
+    //   method:"get"
+    // }).then(res=>{
+    //   console.log(res)
+    // }).catch(err=>{
+    //   console.log(err)
+    // })
+    let url="https://cnodejs.org/api/v1/topic/5efb4c5d13f8b244e57cc632";
+    jsonp(url,()=>{
+      //jsonp是在network中的js查看
     })
   }
 }
