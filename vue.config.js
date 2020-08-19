@@ -3,11 +3,11 @@ module.exports = {
         host: "localhost",
         port: 8080,
         proxy: {
-            "/common": {
-                target: "https://www.imooc.com",
+            "/api": {
+                target: "https://cnodejs.org",
                 changeOrigin: true,
                 pathRewrite: {
-                    "/common":"/common"
+                    "/api":"/api"
                 }
             }
         }
