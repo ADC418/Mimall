@@ -1,28 +1,22 @@
 <template>
   <div id="app">
-   <router-view></router-view>
-   
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 //import axios from "axios";
-import jsonp from "jsonp"
+//import jsonp from "jsonp"
 export default {
-  name: 'App',
-  components: {
-  
-  },
-  data(){
-    return{
-      age:30,
+  name: "App",
+  components: {},
+  data() {
+    return {
      
-    }
+    };
   },
-  mounted(){
-   
-   }
-}
+  mounted() {},
+};
 </script>
 
 <style>
