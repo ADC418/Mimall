@@ -1,5 +1,5 @@
 <template>
-  
+  <div>中间页</div>
 </template>
 
 <script>
