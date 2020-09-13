@@ -1,5 +1,5 @@
 <template>
-  <div>detail</div>
+  <div>order-header</div>
 </template>
 
 <script>
