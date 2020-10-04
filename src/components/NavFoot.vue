@@ -11,8 +11,8 @@
       <a href="https://coding.imooc.com/class/343.html" target="_blank">微信支付专项</a>
     </div>
     <div class="copyright">
-      Copyright ©2020
-      <span class="domain">mi.futurefe.com</span>All Rights Reserved.
+      Copyright ©2020WZQ
+      <span class="domain">mi.com</span>All Rights Reserved.
     </div>
   </div>
 </template>
@@ -42,6 +42,7 @@ export default {
     a {
       color: #999;
       display: inline-block;
+      text-decoration: none;
     }
     span {
       margin: 0 10px;
