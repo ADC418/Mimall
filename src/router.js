@@ -11,7 +11,7 @@ import OrderConfirm from './pages/orderConfirm' //订单确认
 import OrderList from './pages/orderList'//订单列表
 import OrderPay from './pages/orderPay'//订单结算
 import AliPay from './pages/alipay'//中间页
-
+import Login from "./pages/login.vue"
 
 Vue.use(Router);//加载插件
 
@@ -43,6 +43,11 @@ const route=new Router({
             path: '/cart',//购物车 单独页面
             name: 'cart',
             component: Cart,
+        },
+        {
+            path: '/login',//登录 单独页面
+            name: 'login',
+            component: Login,
         },
         {
             path: '/order',//订单

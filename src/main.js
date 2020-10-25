@@ -3,8 +3,17 @@ import routers from "./router"
 
 import axios from "axios"
 import VueAxios from "vue-axios" //调用时通过this.axios.xxx即可
-//import env from  "./env"
+
+import store from './store/index.js'
 import App from './App.vue'
+import VueLazyLoad from 'vue-lazyload' //图片懒加载
+import VueCookie from "vue-cookie"
+
+
+Vue.use(VueLazyLoad, {
+  loading: "/imgs/loading-svg/loading-bars.svg"
+})
+Vue.use(VueCookie)
 
 const mock = true;//定义一个开关
 if (mock) {
@@ -25,23 +34,30 @@ axios.defaults.timeout = 8000;//超时时间 提高用户体验
   msg:''；//错误信息
 }
 */
-axios.interceptors.response.use(function (response) {
+axios.interceptors.response.use(function(response){
   let res = response.data;
-  if (res.status == 0) {
+  let path = location.hash;
+  if(res.status == 0){
     return res.data;
   } else if (res.status == 10) {
-    window.location.href = "/#/login"
+    if (path != "#/index") {
+      //在首页就不用调转
+      window.location.href = '/#/login';
+    }
+   
+    //return Promise.reject(res);
   } else {
-    alert(res.msg)
+    alert(res.msg);
+    return Promise.reject(res);
   }
-})
-
+});
 
 Vue.use(VueAxios, axios);//调用时通过this即可
 
 Vue.config.productionTip = false
 
 new Vue({
+  store,
   router: routers,
   render: h => h(App),
 }).$mount('#app')

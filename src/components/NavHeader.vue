@@ -9,11 +9,13 @@
           <a href="javascript:;">协议规则</a>
         </div>
         <div class="tobar-user">
-          <a href="javascript:;" v-if="username">{{username}}</a>
+          <a href="javascript:;" v-if="username">{{ username }}</a>
           <a href="javascript:;" v-if="!username" @click="login">登录</a>
           <a href="javascript:;" v-if="username">我的订单</a>
           <a href="javascript:;" class="my-cart">
-            <span class="icon-cart" @click="goToCart"></span>购物车
+            <span class="icon-cart" @click="goToCart"></span>购物车({{
+              cartCount
+            }})
           </a>
         </div>
       </div>
@@ -28,17 +30,18 @@
             <span>小米手机</span>
             <div class="children">
               <ul>
-                <li class="product" v-for="(item,index) in phoneList" :key="index">
+                <li
+                  class="product"
+                  v-for="(item, index) in phoneList"
+                  :key="index"
+                >
                   <!-- target打开新窗口 -->
-                  <a :href="'/#/products/'+item.id" target="_blank">
+                  <a :href="'/#/products/' + item.id" target="_blank">
                     <div class="pro-img">
-                      <img
-                        :src="item.mainImage"
-                        :alt="item.subtitle"
-                      />
+                      <img v-lazy="item.mainImage" :alt="item.subtitle" />
                     </div>
-                    <div class="pro-name">{{item.name}}</div>
-                    <div class="pro-price">{{item.price | currency}}</div>
+                    <div class="pro-name">{{ item.name }}</div>
+                    <div class="pro-price">{{ item.price | currency }}</div>
                   </a>
                 </li>
               </ul>
@@ -55,7 +58,7 @@
                   <!-- target打开新窗口 -->
                   <a href target="_blank">
                     <div class="pro-img">
-                      <img src="/imgs/nav-img/nav-3-1.jpg" alt />
+                      <img v-lazy="'/imgs/nav-img/nav-3-1.jpg'" alt />
                     </div>
                     <div class="pro-name">小米壁画电视 65英寸</div>
                     <div class="pro-price">6999元</div>
@@ -65,47 +68,47 @@
                   <!-- target打开新窗口 -->
                   <a href target="_blank">
                     <div class="pro-img">
-                      <img src="/imgs/nav-img/nav-3-2.jpg" alt />
+                      <img v-lazy="'/imgs/nav-img/nav-3-2.jpg'" alt />
                     </div>
                     <div class="pro-name">小米壁画电视 65英寸</div>
                     <div class="pro-price">1999元</div>
                   </a>
                 </li>
-                 <li class="product">
+                <li class="product">
                   <!-- target打开新窗口 -->
                   <a href target="_blank">
                     <div class="pro-img">
-                      <img src="/imgs/nav-img/nav-3-3.png" alt />
+                      <img v-lazy="'/imgs/nav-img/nav-3-3.png'" alt />
                     </div>
                     <div class="pro-name">小米壁画电视 65英寸</div>
                     <div class="pro-price">699元</div>
                   </a>
                 </li>
-                 <li class="product">
+                <li class="product">
                   <!-- target打开新窗口 -->
                   <a href target="_blank">
                     <div class="pro-img">
-                      <img src="/imgs/nav-img/nav-3-4.jpg" alt />
+                      <img v-lazy="'/imgs/nav-img/nav-3-4.jpg'" alt />
                     </div>
                     <div class="pro-name">小米壁画电视 65英寸</div>
                     <div class="pro-price">1799元</div>
                   </a>
                 </li>
-                 <li class="product">
+                <li class="product">
                   <!-- target打开新窗口 -->
                   <a href target="_blank">
                     <div class="pro-img">
-                      <img src="/imgs/nav-img/nav-3-5.jpg" alt />
+                      <img v-lazy="'/imgs/nav-img/nav-3-5.jpg'" alt />
                     </div>
                     <div class="pro-name">小米壁画电视 65英寸</div>
                     <div class="pro-price">2699元</div>
                   </a>
                 </li>
-                 <li class="product">
+                <li class="product">
                   <!-- target打开新窗口 -->
                   <a href target="_blank">
                     <div class="pro-img">
-                      <img src="/imgs/nav-img/nav-3-6.png" alt />
+                      <img v-lazy="'/imgs/nav-img/nav-3-6.png'" alt />
                     </div>
                     <div class="pro-name">小米壁画电视 65英寸</div>
                     <div class="pro-price">6999元</div>
@@ -126,14 +129,23 @@
   </div>
 </template>
 <script>
+import { mapState } from "vuex";
 export default {
   name: "nav-header",
   data() {
     return {
       phoneList: [],
       //username: "稻子",
-      username: "",
     };
+  },
+  computed: {
+    // username() {
+    //   return this.$store.state.username;
+    // },
+    // cartCount() {
+    //   return this.$store.state.cartCount;
+    // },
+    ...mapState(["username", "cartCount"]),
   },
   mounted() {
     this.getProductList();
@@ -154,21 +166,21 @@ export default {
       this.$router.push("/cart");
     },
     getProductList() {
-        this.axios
-          .get("/products", {
-            params: {
-              categoryId: "100012",
-              pageSize:6
-            },
-          })
-          .then((res) => {
-            //console.log(res.list)
-            // if (res.list.length > 6) {
-            //   this.phoneList = res.list.slice(0, 6);
-            //   console.log(this.phoneList);
-            // }
-            this.phoneList = res.list
-          });
+      this.axios
+        .get("/products", {
+          params: {
+            categoryId: "100012",
+            pageSize: 6,
+          },
+        })
+        .then((res) => {
+          //console.log(res.list)
+          // if (res.list.length > 6) {
+          //   this.phoneList = res.list.slice(0, 6);
+          //   console.log(this.phoneList);
+          // }
+          this.phoneList = res.list;
+        });
     },
   },
 };
@@ -196,6 +208,7 @@ export default {
         background-color: #ff6600;
         text-align: center;
         color: #fff;
+        margin-right: 0;
         .icon-cart {
           @include bgImg(16px, 12px, "/imgs/icon-cart-checked.png");
           margin-right: 4px;
@@ -266,7 +279,7 @@ export default {
             z-index: 10;
             background-color: #fff;
             transition: height 0.5s;
-            ul{
+            ul {
               list-style: none;
             }
             .product {
